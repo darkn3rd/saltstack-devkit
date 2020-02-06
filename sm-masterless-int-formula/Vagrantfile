@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 @time = Time.now.strftime("%Y%m%d%H%M%S")
-SALT_DEBUG = ENV['SALT_DEBUG'] || true
+SALT_DEBUG = ENV['SALT_DEBUG'] || false
 
 Vagrant.configure("2") do |config|
   config.vm.box = "bento/ubuntu-18.04"
@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
   # global configuration
   config.vm.hostname = "docker-nginx-node.dev"
   config.vm.provider("virtualbox") { |vbox| vbox.name = "docker_nginx_node_#{@time}" }
-  config.vm.network "forwarded_port", guest: 80, host: 8081
+  config.vm.network "forwarded_port", guest: 8081, host: 8081
 
   config.vm.provision :salt do |salt|
     salt.masterless = true
