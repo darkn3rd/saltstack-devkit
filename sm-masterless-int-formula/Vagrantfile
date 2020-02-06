@@ -1,0 +1,26 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+@time = Time.now.strftime("%Y%m%d%H%M%S")
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "bento/ubuntu-18.04"
+
+  # global mounts
+  config.vm.synced_folder './roots/salt/', '/srv/salt'
+  config.vm.synced_folder './roots/pillar', '/srv/pillar'
+
+  # global configuration
+  config.vm.hostname = "docker-nginx-node.dev"
+  config.vm.provider("virtualbox") { |vbox| vbox.name = "docker_nginx_node_#{@time}" }
+  config.vm.network "forwarded_port", guest: 8081, host: 8081
+
+  # download/install salt on guest
+  config.vm.provision :salt do |salt|
+    salt.run_highstate = false
+  end
+
+  # run local states seperately to workaround pip modules not reloading
+  %w(docker docker_nginx).each do |state|
+    config.vm.provision "shell", inline: "salt-call --local state.sls #{state}"
+  end
+end
