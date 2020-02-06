@@ -4,9 +4,8 @@
 
 docker_nginx:
   docker_container.running:
-      - image: {{ repo }}:{{ tag }}
-      - port_bindings:
-        - {{ port }}:80
-      - restart_policy: always
-      - require:
-        - sls: docker
+    - image: {{ repo }}:{{ tag }}
+    - port_bindings:
+      - {{ port }}:80
+    - restart_policy: always
+

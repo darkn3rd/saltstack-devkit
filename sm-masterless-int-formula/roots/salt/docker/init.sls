@@ -1,5 +1,6 @@
 {% from "docker/map.jinja" import docker with context %}
 
+# Install Docker CE from Docker debian repo
 docker-pkg-dep:
   pkg.installed:
     - pkgs:
@@ -9,7 +10,7 @@ docker-pkg-dep:
 
 docker-pkg-repo:
   pkgrepo.managed:
-    {% for key, value in docker.repo.items() %}
+    {% for key, value in docker.repo.items() -%}
     - {{ key }}: {{ value }}
     {% endfor %}
     - refresh: True
@@ -34,8 +35,7 @@ docker-python-modules:
   pip.installed:
     - names: 
       - docker 
-      - urllib3 
-      - requests
-    - reload_modules: true
+    - reload_modules: True
+    - upgrade: True
     - require:
-      - pkgs: python-pip
+      - pkg: python-pip
