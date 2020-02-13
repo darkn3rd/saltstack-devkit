@@ -12,9 +12,20 @@ This demonstrates how use an internal Salt Formula to install Docker and then ru
 
 ## Usage
 
+### Python 2
+
 ```bash
 # download ubuntu, launch guest, install salt, provision guest w/ docker formula
 vagrant up
+# test results
+curl localhost:8081
+```
+
+### Python 3
+
+```bash
+# download ubuntu, launch guest, install salt, provision guest w/ docker formula
+PYTHON=python3 vagrant up
 # test results
 curl localhost:8081
 ```
