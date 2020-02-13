@@ -28,8 +28,11 @@ docker:
        - vagrant
 
 # Requirements for Salt to interact with Docker
-python-pip:
-  pkg.installed
+pip.package:
+  pkg.installed:
+    - pkgs:
+      - python-pip
+      - python3-pip
 
 docker-python-modules:
   pip.installed:
@@ -38,4 +41,4 @@ docker-python-modules:
     - reload_modules: True
     - upgrade: True
     - require:
-      - pkg: python-pip
+      - pkg: pip.package
