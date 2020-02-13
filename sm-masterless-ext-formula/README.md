@@ -12,9 +12,21 @@ This demonstrates how use an external Salt Formula (nginx-formula as an example)
 
 ## Usage
 
+### Python 2
+
 ```bash
 # download ubuntu, launch guest, install salt, provision guest w/ nginx formula
 vagrant up
 # test results
 curl localhost:8080
 ```
+
+### Python 3
+
+```bash
+# download ubuntu, launch guest, install salt, provision guest w/ nginx formula
+PYTHON=python3 vagrant up
+# test results
+curl localhost:8080
+```
+
